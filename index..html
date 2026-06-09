@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Iframe Height Test</title>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+    }
+
+    .controls {
+        position: sticky;
+        top: 0;
+        background: white;
+        padding-bottom: 10px;
+    }
+
+    button {
+        font-size: 18px;
+        padding: 8px 16px;
+        margin-right: 10px;
+        cursor: pointer;
+    }
+
+    .row {
+        padding: 10px;
+        margin: 6px 0;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+</style>
+</head>
+<body>
+
+<div class="controls">
+    <button id="addBtn">+</button>
+    <button id="removeBtn">−</button>
+    <span>Počet riadkov: <strong id="count">0</strong></span>
+</div>
+
+<div id="rows"></div>
+
+<script>
+    const rows = document.getElementById('rows');
+    const count = document.getElementById('count');
+
+    let rowCount = 0;
+
+    function updateCount() {
+        count.textContent = rowCount;
+    }
+
+    function addRow() {
+        rowCount++;
+
+        const div = document.createElement('div');
+        div.className = 'row';
+        div.textContent = `Riadok ${rowCount}`;
+        div.dataset.id = rowCount;
+
+        rows.appendChild(div);
+        updateCount();
+    }
+
+    function removeRow() {
+        if (!rows.lastElementChild) return;
+
+        rows.removeChild(rows.lastElementChild);
+        rowCount--;
+
+        updateCount();
+    }
+
+    document.getElementById('addBtn').addEventListener('click', addRow);
+    document.getElementById('removeBtn').addEventListener('click', removeRow);
+
+    for (let i = 0; i < 5; i++) {
+        addRow();
+    }
+</script>
+
+</body>
+</html>
